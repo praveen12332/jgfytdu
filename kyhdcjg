@@ -1,0 +1,27 @@
+import pandas as pd
+
+# Load the Swiggy outlets data into a pandas DataFrame
+swiggy_data = pd.read_csv('/content/Swiggy data.csv')
+
+# Display the first few rows of the data
+print(swiggy_data.head())
+
+# Calculate basic statistics of the outlets
+num_outlets = len(swiggy_data)
+#avg_rating = swiggy_data['Rating'].mean()
+#max_reviews = swiggy_data['reviews'].max()
+
+# Print the calculated statistics
+print("Number of outlets:", num_outlets)
+#print("Average rating:", avg_rating)
+#print("Maximum reviews:", max_reviews)
+
+# Group outlets by location and calculate average rating and number of outlets per location
+grouped_data = swiggy_data.groupby('Location').agg({'Rating': 'mean'}).reset_index()
+grouped_data.columns = ['Location', 'Average Rating', 'Number of Outlets']
+
+# Sort the data by average rating in descending order
+sorted_data = grouped_data.sort_values('Average Rating', ascending=False)
+
+# Display the sorted data
+print(sorted_data)
